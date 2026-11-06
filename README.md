@@ -1,4 +1,4 @@
-# Terraform Practice 02 – Launch an EC2 Instance on AWS
+# Terraform Practice – Launch an EC2 Instance on AWS
 
 ## Goal
 Learn the basic Terraform workflow by creating and deleting one EC2 instance on AWS.
