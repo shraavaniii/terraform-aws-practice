@@ -1,50 +1,44 @@
-# Terraform Practice 03 – Variables and Outputs
+# Terraform Learning
 
-## Goal
-Learn Terraform variables and outputs by building on my earlier EC2 exercise (02).
+Hands-on Terraform practice on AWS. Each exercise has its own folder with its own code and README. This page holds the general notes I collect as I learn.
 
-## What I built
-The same `t3.micro` Ubuntu EC2 instance in `ap-south-1` (Mumbai), created and destroyed with Terraform. The code now uses variables, and Terraform prints the instance ID and public IP after `apply`.
+## Exercises
+| Folder | What I practiced |
+|---|---|
+| [02-terraform-and-aws-integration](./02-terraform-and-aws-integration) | Create and destroy one EC2 instance, IAM role and custom policy |
+| [03-variables-and-outputs](./03-variables-and-outputs) | Variables and outputs on the same EC2 code |
 
-## Previous Exercise (02): Basic EC2 Creation
+## My setup
+- AWS CLI profile that uses an IAM role
+- Region: `ap-south-1` (Mumbai)
+- Terraform runs inside WSL2 Ubuntu on Windows
 
-The first exercise involved creating and deleting one EC2 instance using Terraform.
+## Terraform basics (my notes)
+- Terraform is Infrastructure as Code: I describe what I want in `.tf` files and Terraform builds it.
+- Terraform reads every `.tf` file in a folder together. Common names are `main.tf`, `variables.tf` and `outputs.tf`.
+- `terraform.tfstate` records what Terraform built. It must never be committed.
 
-### What I learned
-- The basic Terraform workflow: init, fmt, validate, plan, apply and destroy.
-- AWS region selection matters; the Console initially showed no instance because it was set to Virginia instead of Mumbai.
-- `terraform destroy` removes the created instance.
+| Command | Use |
+|---|---|
+| `terraform init` | Download the provider (first time in a folder) |
+| `terraform fmt` | Fix code formatting |
+| `terraform validate` | Check the code for errors |
+| `terraform plan` | Preview changes (read-only) |
+| `terraform apply` | Create or change resources (can cost money) |
+| `terraform output` | Show the output values |
+| `terraform state list` | List resources Terraform tracks |
+| `terraform destroy` | Delete everything Terraform created |
 
-### Problem faced: UnauthorizedOperation
-- `aws ec2 run-instances --dry-run` failed with `UnauthorizedOperation` on `network-interface/*`.
-- My custom IAM policy restricted `RunInstances` to `t3.micro`, but AWS also checked permissions for supporting resources.
-- I split the policy into separate statements for the instance and supporting resources.
-- `--dry-run` tests permissions without actually creating an instance.
+## Safe practice rules
+- Run `plan` before `apply`.
+- Destroy practice resources in the same sitting, then confirm `terminated` in the correct region.
+- `aws ec2 run-instances --dry-run` tests EC2 permissions without creating anything.
+- Never commit `.terraform/`, `*.tfstate` or AWS credentials.
 
-## Exercise 03: Variables and Outputs
+## Troubleshooting log
+- **Console shows no instance:** check the region at the top right.
+- **`UnauthorizedOperation` on `RunInstances`:** an instance-type condition also applied to the supporting resources, so I split the policy into two statements.
+- **Windows blocked `terraform.exe`:** Smart App Control was On, so I ran Terraform in WSL2 Ubuntu instead.
 
-### Files
-- `variables.tf` – settings: region and instance type
-- `main.tf` – AWS provider and EC2 resource, using `var.region` and `var.instance_type`
-- `outputs.tf` – prints `instance_id` and `public_ip` after `apply`
-- `.gitignore` – keeps provider downloads and state files out of Git
-
-### Commands I ran
-`terraform init`, `terraform fmt`, `terraform validate`, `terraform plan`, `terraform apply`, `terraform output`, `terraform destroy`
-
-### Problem I faced
-Windows blocked `terraform.exe` because its publisher couldn't be verified. Smart App Control was On. I installed Ubuntu in WSL2 and ran Terraform there instead, without turning off a security setting.
-
-### What I learned
-- Variables keep settings in one place instead of hardcoding them in `main.tf`.
-- Outputs print useful values like the instance ID and public IP after `apply`.
-- Running `apply` again without changing the configuration makes no changes.
-- A variable can accept values that my IAM policy still refuses. My policy only allows `t3.micro` in `ap-south-1`.
-
-## Limits of the current exercise
-- The AMI ID is hardcoded.
-- No security group or SSH access.
-- State is stored locally.
-
-## Next steps
+## Next
 Security group and SSH.
