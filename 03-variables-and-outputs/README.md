@@ -75,6 +75,12 @@ instance_id = "i-xxxxxxxxxxxxxxxxx"
 public_ip = "x.x.x.x"
 ```
 
+## Results
+![Apply complete](screenshots/apply-complete.png)
+![Instance running](screenshots/instance_running.png)
+![Destroy complete](screenshots/destroy-complete.png)
+![Instance terminated](screenshots/instance_terminated.png)
+
 ## Problem I faced
 Windows blocked `terraform.exe` ("publisher can't be verified"), and Smart App Control was On. I did not turn the setting off. I did this instead:
 1. Installed Ubuntu with `wsl --install -d Ubuntu`.
