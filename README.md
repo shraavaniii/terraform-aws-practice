@@ -5,8 +5,31 @@ Hands-on Terraform practice on AWS. Each exercise has its own folder with its ow
 ## Exercises
 | Folder | What I practiced |
 |---|---|
+| [01-local-file](./01-local-file) | Create and destroy a local text file with the `local` provider (no AWS) |
 | [02-terraform-and-aws-integration](./02-terraform-and-aws-integration) | Create and destroy one EC2 instance, IAM role and custom policy |
 | [03-variables-and-outputs](./03-variables-and-outputs) | Variables and outputs on the same EC2 code |
+
+## Exercise 01: Local file (no AWS)
+My first exercise, done before using any cloud. I used the `local` provider to create a text file with Terraform, then deleted it. It has no folder in this repo because it only creates a local file.
+
+```hcl
+resource "local_file" "demo" {
+  filename = "hello.txt"
+  content  = "Hello! This is my first Terraform exercise."
+}
+```
+- `local_file` is the resource type, from the `local` provider.
+- `demo` is the name Terraform uses for this resource inside the code.
+- `filename` is the file to create. It is created in the folder where I run Terraform.
+- `content` is the text written into the file.
+
+Commands I ran: `terraform init`, `plan`, `apply`, `state list`, `destroy`
+
+What I learned:
+- A provider is the plugin that lets Terraform manage something (here, local files).
+- A resource describes one thing to create.
+- Terraform records what it created in state, and `terraform state list` shows it.
+- `plan -destroy` previews a deletion before `destroy` does it.
 
 ## My setup
 - AWS CLI profile that uses an IAM role
