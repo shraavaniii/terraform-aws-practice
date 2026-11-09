@@ -1,64 +1,64 @@
-\# 01 – Local File with Terraform
+# 01 – Local File with Terraform
 
 
 
-\## Goal
+## Goal
 
 Learn Terraform basics before using any cloud.
 
 
 
-\## What I built
+## What I built
 
 A text file (`hello.txt`) created and deleted by Terraform with the `local` provider. No AWS was involved.
 
 
 
-\## main.tf
+## main.tf
 
 ```hcl
 
-resource "local\_file" "demo" {
+resource "local_file" "demo" {
 
-&#x20; filename = "hello.txt"
+  filename = "hello.txt"
 
-&#x20; content  = "Hello! This is my first Terraform exercise."
+  content  = "Hello! This is my first Terraform exercise."
 
 }
 
 ```
 
-\- `local\_file` is the resource type, from the `local` provider.
+- `local_file` is the resource type, from the `local` provider.
 
-\- `demo` is the name Terraform uses for this resource inside the code.
+- `demo` is the name Terraform uses for this resource inside the code.
 
-\- `filename` is the file to create, in the folder where I run Terraform.
+- `filename` is the file to create, in the folder where I run Terraform.
 
-\- `content` is the text written into the file.
+- `content` is the text written into the file.
 
 
 
-\## Commands I ran
+## Commands I ran
 
 `terraform init`, `plan`, `apply`, `state list`, `plan -destroy`, `destroy`
 
 
 
-\## What I learned
+## What I learned
 
-\- A provider is the plugin that lets Terraform manage something (here, local files).
+- A provider is the plugin that lets Terraform manage something (here, local files).
 
-\- A resource describes one thing to create.
+- A resource describes one thing to create.
 
-\- Terraform records what it created in state, and `terraform state list` shows it.
+- Terraform records what it created in state, and `terraform state list` shows it.
 
-\- `plan -destroy` previews a deletion before `destroy` does it.
+- `plan -destroy` previews a deletion before `destroy` does it.
 
 
 
-\## Limits
+## Limits
 
-\- Local files only, with no cloud.
+- Local files only, with no cloud.
 
-\- No variables or outputs. Exercise 03 covers those.
+- No variables or outputs. Exercise 03 covers those.
 
