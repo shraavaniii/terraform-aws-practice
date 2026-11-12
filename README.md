@@ -8,6 +8,7 @@ Hands-on Terraform practice on AWS. Each exercise has its own folder with its ow
 | [01-local-file](./01-local-file) | Create and destroy a local text file with the `local` provider (no AWS) |
 | [02-terraform-and-aws-integration](./02-terraform-and-aws-integration) | Create and destroy one EC2 instance, IAM role and custom policy |
 | [03-variables-and-outputs](./03-variables-and-outputs) | Variables and outputs on the same EC2 code |
+| [04-security-group-and-ssh](./04-security-group-and-ssh) | Security group limited to my IP, key pair and SSH login |
 
 ## My setup
 - AWS CLI profile that uses an IAM role
