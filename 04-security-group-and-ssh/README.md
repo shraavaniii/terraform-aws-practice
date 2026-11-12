@@ -93,8 +93,7 @@ I tested the permissions for free first with `aws ec2 create-security-group --dr
 
 ## Results
 ![Apply complete](screenshots/apply-complete.png)
-![SSH login](screenshots/ssh-login.png)
-![Instance in the Console](screenshots/console-instance.png)
+![Instance in the Console](screenshots/instance-created.png)
 ![Destroy complete](screenshots/destroy-complete.png)
 
 ## Cost safety
